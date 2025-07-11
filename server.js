@@ -32,9 +32,6 @@ fastify.register(require("@fastify/view"), {
     handlebars: require("handlebars"),
   },
 });
-// We use a module for handling database operations in /src
-const db = require("./src/" + data.database);
-
 /**
  * Home route for the app
  *
