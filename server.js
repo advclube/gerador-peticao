@@ -33,7 +33,6 @@ fastify.register(require("@fastify/view"), {
   },
 });
 // We use a module for handling database operations in /src
-const data = require("./src/data.json");
 const db = require("./src/" + data.database);
 
 /**
