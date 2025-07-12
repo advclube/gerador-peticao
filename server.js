@@ -45,7 +45,7 @@ fastify.get("/", async (request, reply) => {
   Params is the data we pass to the client
   - SEO values for front-end UI but not for raw data
   */
-  let params = request.query.raw ? {} : { seo: seo };
+let params = {};
 
   // Get the available choices from the database
   const options = await db.getOptions();
@@ -77,7 +77,7 @@ fastify.get("/", async (request, reply) => {
  */
 fastify.post("/", async (request, reply) => {
   // We only send seo if the client is requesting the front-end ui
-  let params = request.query.raw ? {} : { seo: seo };
+let params = {};
 
   // Flag to indicate we want to show the poll results instead of the poll form
   params.results = true;
@@ -106,7 +106,7 @@ fastify.post("/", async (request, reply) => {
  * Send raw json or the admin handlebars page
  */
 fastify.get("/logs", async (request, reply) => {
-  let params = request.query.raw ? {} : { seo: seo };
+let params = {};
 
   // Get the log history from the db
   params.optionHistory = await db.getLogs();
@@ -128,7 +128,7 @@ fastify.get("/logs", async (request, reply) => {
  * If auth is successful, empty the history
  */
 fastify.post("/reset", async (request, reply) => {
-  let params = request.query.raw ? {} : { seo: seo };
+let params = {};
 
   /* 
   Authenticate the user request by checking against the env key variable
