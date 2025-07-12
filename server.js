@@ -48,7 +48,6 @@ fastify.get("/", async (request, reply) => {
 let params = {};
 
   // Get the available choices from the database
-  const options = await db.getOptions();
   if (options) {
     params.optionNames = options.map((choice) => choice.language);
     params.optionCounts = options.map((choice) => choice.picks);
@@ -85,7 +84,6 @@ let params = {};
 
   // We have a vote - send to the db helper to process and return results
   if (request.body.language) {
-    options = await db.processVote(request.body.language);
     if (options) {
       // We send the choices and numbers in parallel arrays
       params.optionNames = options.map((choice) => choice.language);
@@ -107,9 +105,6 @@ let params = {};
  */
 fastify.get("/logs", async (request, reply) => {
 let params = {};
-
-  // Get the log history from the db
-  params.optionHistory = await db.getLogs();
 
   // Let the user know if there's an error
   params.error = params.optionHistory ? null : data.errorMessage;
@@ -146,11 +141,7 @@ let params = {};
     params.failed = "You entered invalid credentials!";
 
     // Get the log list
-    params.optionHistory = await db.getLogs();
   } else {
-    // We have a valid key and can clear the log
-    params.optionHistory = await db.clearHistory();
-
     // Check for errors - method would return false value
     params.error = params.optionHistory ? null : data.errorMessage;
   }
